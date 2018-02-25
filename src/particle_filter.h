@@ -10,6 +10,7 @@
 #define PARTICLE_FILTER_H_
 
 #include "helper_functions.h"
+#include "map.h"
 
 struct Particle {
 
@@ -108,7 +109,8 @@ public:
 	std::string getAssociations(Particle best);
 	std::string getSenseX(Particle best);
 	std::string getSenseY(Particle best);
-
+	std::vector<LandmarkObs> ConvertToMapCooridinates(std::vector<LandmarkObs> vehilceCooridinates, Particle particle);
+	std::vector<Map::single_landmark_s> FindInRangeLandmarks(double sensor_range, std::vector<Map::single_landmark_s> landmarkList, Particle particle);
 	/**
 	* initialized Returns whether particle filter is initialized yet or not.
 	*/

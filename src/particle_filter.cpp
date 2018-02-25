@@ -55,6 +55,67 @@ void ParticleFilter::updateWeights(double sensor_range, double std_landmark[],
 	//   and the following is a good resource for the actual equation to implement (look at equation 
 	//   3.33
 	//   http://planning.cs.uiuc.edu/node99.html
+
+	for (int i = 0; i < this->num_particles; ++i)
+	{
+
+		Particle particle = this->particles[i];
+		//Convert to map coordinates
+		std::vector<LandmarkObs> observations_map = ConvertToMapCooridinates(observations, particle);
+		//Associate nearest neighbors
+		std::vector<Map::single_landmark_s> inRangeLandmarks = FindInRangeLandmarks(sensor_range, map_landmarks.landmark_list, particle);
+		//Assign new weights
+	}
+	//normalize weights
+}
+
+std::vector<Map::single_landmark_s> ParticleFilter::FindInRangeLandmarks(double sensor_range, std::vector<Map::single_landmark_s>  landmarkList, Particle particle)
+{
+	std::vector<Map::single_landmark_s> inRangeLandmarks;
+
+	for (int i = 0; i < landmarkList.size(); i++)
+	{
+		double distance = dist(particle.x, particle.y, landmarkList[i].x_f, landmarkList[i].y_f);
+
+		if (distance <= sensor_range)
+		{
+			inRangeLandmarks.push_back(landmarkList[i]);
+		}
+	}
+
+	return inRangeLandmarks;
+}
+
+std::vector<LandmarkObs> ParticleFilter::ConvertToMapCooridinates(std::vector<LandmarkObs> vehicleCooridinates, Particle particle)
+{
+	std::vector<LandmarkObs> mapCooridinates;
+
+	for (int i = 0; i < vehicleCooridinates.size(); i++)
+	{
+		LandmarkObs obsVehicle = vehicleCooridinates[i];
+
+		//car observation coordinates
+		float xc = obsVehicle.x;
+		float yc = obsVehicle.y;
+		//particle position
+		float xp = particle.x;
+		float yp = particle.y;
+		float thetap = particle.theta;
+
+		//calculate map observation coordinates
+		float xm = xp + cos(thetap)*xc - sin(thetap)*yc;
+		float ym = yp + sin(thetap)*xc + cos(thetap)*yc;
+
+		LandmarkObs newObs = LandmarkObs();
+
+		newObs.x = xm;
+		newObs.y = ym;
+		newObs.id = obsVehicle.id;
+
+		mapCooridinates.push_back(newObs);
+	}
+
+	return mapCooridinates;
 }
 
 void ParticleFilter::resample() {
