@@ -46,7 +46,7 @@ public:
 
 	// Constructor
 	// @param num_particles Number of particles
-	ParticleFilter() : num_particles(0), is_initialized(false) {}
+	ParticleFilter() : num_particles(1000), is_initialized(false) {}
 
 	// Destructor
 	~ParticleFilter() {}
@@ -79,7 +79,7 @@ public:
 	 * @param predicted Vector of predicted landmark observations
 	 * @param observations Vector of landmark observations
 	 */
-	void dataAssociation(std::vector<LandmarkObs> predicted, std::vector<LandmarkObs>& observations);
+	void dataAssociation(std::vector<Map::single_landmark_s> predicted, std::vector<LandmarkObs> observations, Particle &particle);
 	
 	/**
 	 * updateWeights Updates the weights for each particle based on the likelihood of the 
@@ -111,6 +111,8 @@ public:
 	std::string getSenseY(Particle best);
 	std::vector<LandmarkObs> ConvertToMapCooridinates(std::vector<LandmarkObs> vehilceCooridinates, Particle particle);
 	std::vector<Map::single_landmark_s> FindInRangeLandmarks(double sensor_range, std::vector<Map::single_landmark_s> landmarkList, Particle particle);
+	void CalculateUnNormalizedWeights(Particle &particle, std::vector<LandmarkObs> observations, double std_landmark[]);
+	void NormalizeWeights();
 	/**
 	* initialized Returns whether particle filter is initialized yet or not.
 	*/
