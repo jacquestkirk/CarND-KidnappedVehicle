@@ -121,7 +121,7 @@ void ParticleFilter::prediction(double delta_t, double std_pos[], double velocit
 			py_new = py + v / yaw_d * (-cos(yaw + yaw_d * delta_t) + cos(yaw));
 		}
 
-		yaw_new = yaw;
+		yaw_new = yaw + yaw_rate * delta_t;
 
 		// generate noise terms for state
 		double noise_x = dist_x(gen);
@@ -137,7 +137,7 @@ void ParticleFilter::prediction(double delta_t, double std_pos[], double velocit
 		particle.y = py_new;
 		particle.theta = yaw_new;
 
-
+		particles[i] = particle;
 
 	}
 
