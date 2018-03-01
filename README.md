@@ -4,15 +4,6 @@ Completed in 97.58 seconds, with an error of [.205,.145,.006] for x,y, and yaw r
 
 ![alt text](./FinalResult.jpg)
 
-### Algorithm:
-- The Sensor Fusion Algorithm starts in  [ukf.cpp](https://github.com/jacquestkirk/CarND_UnscentedKalmanFilter/blob/master/src/ukf.cpp) in the ProcessMeasurement() function.
-- The initialization method occurs in Initialize function in  [ukf.cpp](https://github.com/jacquestkirk/CarND_UnscentedKalmanFilter/blob/master/src/ukf.cpp).
-- Predict then update happens in [ukf.cpp](https://github.com/jacquestkirk/CarND_UnscentedKalmanFilter/blob/master/src/ukf.cpp) between lines 94-106.
-- Radar and Lidar data is selected in lines 18 and 21 of [ukf.cpp](https://github.com/jacquestkirk/CarND_UnscentedKalmanFilter/blob/master/src/ukf.cpp)
-
-### Extra:
-- With radar only RMSE is [0.207,0.252,0.366,0.265]
-- With lidar only RMSE is [0.170,0.147,0.615,0.253]
 
 
 ## Original .md
