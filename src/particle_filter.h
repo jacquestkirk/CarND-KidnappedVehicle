@@ -46,7 +46,7 @@ public:
 
 	// Constructor
 	// @param num_particles Number of particles
-	ParticleFilter() : num_particles(1000), is_initialized(false) {}
+	ParticleFilter() : num_particles(10), is_initialized(false) {}
 
 	// Destructor
 	~ParticleFilter() {}

@@ -84,7 +84,7 @@ void ParticleFilter::prediction(double delta_t, double std_pos[], double velocit
 
 	// Create a normal (Gaussian) distributions.
 	normal_distribution<double> dist_x(0, std_x);
-	normal_distribution<double> dist_y(0, std_y);
+	normal_distribution<double> dist_y(0, std_y );
 	normal_distribution<double> dist_theta(0, std_theta);
 
 
